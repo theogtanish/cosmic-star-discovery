@@ -1,0 +1,61 @@
+
+> cosmic-frontend@0.1.0 lint
+> eslint
+
+
+/home/tot/Projects/cosmic-frontend/app/result/page.js
+  33:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  31 |     const cached = sessionStorage.getItem(`star-${dateStr}`);
+  32 |     if (cached) {
+> 33 |       setData(JSON.parse(cached));
+     |       ^^^^^^^ Avoid calling setState() directly within an effect
+  34 |       setLoading(false);
+  35 |       return;
+  36 |     }  react-hooks/set-state-in-effect
+
+/home/tot/Projects/cosmic-frontend/components/ApodCard.jsx
+  30:13  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/home/tot/Projects/cosmic-frontend/components/CustomCursor.jsx
+  14:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  12 |
+  13 |   useEffect(() => {
+> 14 |     setIsTouch(window.matchMedia('(pointer: coarse)').matches);
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  15 |   }, []);
+  16 |
+  17 |   // Smooth ring follow  react-hooks/set-state-in-effect
+
+/home/tot/Projects/cosmic-frontend/components/StatGrid.jsx
+  14:23  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  12 |     started.current = true;
+  13 |     const num = parseFloat(end);
+> 14 |     if (isNaN(num)) { setValue(end); return; }
+     |                       ^^^^^^^^ Avoid calling setState() directly within an effect
+  15 |
+  16 |     const startTime = performance.now();
+  17 |     const animate = (now) => {  react-hooks/set-state-in-effect
+
+✖ 4 problems (3 errors, 1 warning)
+

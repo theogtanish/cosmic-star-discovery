@@ -1,6 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
+  // Allow APOD images from NASA
+  images: {
+    remotePatterns: [
+      { protocol: 'https', hostname: 'apod.nasa.gov' },
+    ],
+  },
 };
 
 export default nextConfig;

@@ -1,65 +1,143 @@
-import Image from "next/image";
+'use client';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
-export default function Home() {
+import CustomCursor from '../components/CustomCursor';
+import DateInput from '../components/DateInput';
+import MagneticButton from '../components/MagneticButton';
+
+export default function HomePage() {
+  const [date, setDate] = useState('');
+  const [error, setError] = useState('');
+  const router = useRouter();
+
+  const handleDiscover = () => {
+    if (!date) { setError('Please select a date'); return; }
+    setError('');
+    router.push(`/result?date=${date}`);
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <>
+      <CustomCursor />
+
+      <div className="page-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', padding: '2rem' }}>
+        <motion.div
+          style={{ textAlign: 'center', maxWidth: 640, width: '100%' }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {/* Badge */}
+          <motion.div
+            className="badge"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <span className="badge-dot" />
+            5 ASTRONOMICAL DATABASES
+          </motion.div>
+
+          {/* Title */}
+          <motion.div
+            style={{ marginTop: '3rem', marginBottom: '2rem' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6, duration: 1 }}
           >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            <h1 style={{ lineHeight: '0.85', marginBottom: '0.5rem' }}>
+              <span style={{
+                display: 'block',
+                fontFamily: 'var(--font-display)',
+                fontSize: 'var(--text-hero)',
+                fontWeight: 500,
+                color: 'var(--text-primary)',
+                letterSpacing: '-0.02em'
+              }}>
+                Star
+              </span>
+              <span style={{
+                display: 'block',
+                fontFamily: 'var(--font-display)',
+                fontSize: 'var(--text-hero)',
+                fontWeight: 800,
+                color: 'var(--gold-pure)',
+                textShadow: '0 0 80px rgba(201,168,76,0.3)',
+                marginTop: '-0.1em'
+              }}>
+                Discovery
+              </span>
+            </h1>
+          </motion.div>
+
+          {/* Subtitle */}
+          <motion.p
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.9rem',
+              color: 'var(--text-secondary)',
+              marginBottom: '4rem',
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              opacity: 0.8
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.8 }}
+            transition={{ delay: 0.8 }}
+          >
+            What did the universe discover on your day?
+          </motion.p>
+
+          {/* Form */}
+          <motion.div
+            style={{ 
+              display: 'flex', 
+              gap: '1rem', 
+              justifyContent: 'center', 
+              alignItems: 'center',
+              flexWrap: 'wrap'
+            }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1, duration: 0.8 }}
+          >
+            <DateInput value={date} onChange={setDate} />
+            <MagneticButton onClick={handleDiscover}>
+              DISCOVER <FontAwesomeIcon icon={faArrowRight} style={{ marginLeft: '0.5rem' }} />
+            </MagneticButton>
+          </motion.div>
+
+          {error && (
+            <motion.div 
+              className="form-error"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+            >
+              {error}
+            </motion.div>
+          )}
+
+          {/* Hint */}
+          <motion.p
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontStyle: 'italic',
+              fontSize: '1rem',
+              color: 'var(--text-tertiary)',
+              marginTop: '4rem',
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.4 }}
+          >
+            Try your birthday, an anniversary, or any date from 1900–today
+          </motion.p>
+        </motion.div>
+      </div>
+    </>
   );
 }
