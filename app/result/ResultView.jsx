@@ -13,7 +13,6 @@ import AsteroidCard from '../../components/AsteroidCard';
 import ApodCard from '../../components/ApodCard';
 import NarrativeText from '../../components/NarrativeText';
 import BorderGlow from '../../components/BorderGlow/BorderGlow';
-import ShareDialog from '../../components/ShareDialog';
 import { faShareNodes } from '@fortawesome/free-solid-svg-icons';
 
 function ResultContent() {
@@ -24,7 +23,37 @@ function ResultContent() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isShareOpen, setIsShareOpen] = useState(false);
+  const [shareText, setShareText] = useState('SHARE');
+
+  const handleShare = async () => {
+    const shareUrl = typeof window !== 'undefined' ? `${window.location.origin}/result?date=${dateStr}` : '';
+    const shareData = {
+      title: `${data?.primaryStar?.name || 'A New Star'} — Your Star Discovery`,
+      text: `Discover what the universe found on my day!`,
+      url: shareUrl,
+    };
+
+    // Use Native Web Share if supported and likely on mobile
+    if (navigator.share && /Mobi|Android|Tablet/i.test(navigator.userAgent)) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        // Fallback to copy if user cancels or it fails
+        copyToClipboard(shareUrl);
+      }
+    } else {
+      // Desktop: Copy to clipboard
+      copyToClipboard(shareUrl);
+    }
+  };
+
+  const copyToClipboard = (url) => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(url);
+      setShareText('LINK COPIED');
+      setTimeout(() => setShareText('SHARE'), 2000);
+    }
+  };
 
   useEffect(() => {
     if (!dateStr) { router.push('/'); return; }
@@ -94,8 +123,9 @@ function ResultContent() {
         </button>
 
         <div className="result-nav-actions" style={{ display: 'flex', gap: '1rem' }}>
-          <button className="btn-ghost" onClick={() => setIsShareOpen(true)} data-hover>
-            <FontAwesomeIcon icon={faShareNodes} style={{ marginRight: '0.5rem' }} /> SHARE
+          <button className="btn-ghost" onClick={handleShare} data-hover style={{ minWidth: '120px' }}>
+            <FontAwesomeIcon icon={shareText === 'SHARE' ? faShareNodes : faCircleCheck} style={{ marginRight: '0.5rem' }} /> 
+            {shareText}
           </button>
           <div className="badge">
             <span className="badge-dot" />
@@ -103,13 +133,6 @@ function ResultContent() {
           </div>
         </div>
       </motion.div>
-
-      <ShareDialog 
-        isOpen={isShareOpen} 
-        onClose={() => setIsShareOpen(false)} 
-        data={data} 
-        dateStr={dateStr} 
-      />
 
       {/* Date Header */}
       <motion.div
