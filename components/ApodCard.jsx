@@ -1,17 +1,38 @@
 'use client';
 import { motion } from 'framer-motion';
-import { faImage } from '@fortawesome/free-solid-svg-icons';
+import { faDownload, faShareNodes, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SectionLabel from './SectionLabel';
 import { fadeUp } from '../lib/animations';
 import { useIntersection } from '../hooks/useIntersection';
 
-export default function ApodCard({ apod }) {
+export default function ApodCard({ apod, onShare, shareText }) {
   const [ref, isVisible] = useIntersection();
 
   if (!apod) return null;
 
   const imgUrl = apod.hdUrl || apod.url;
   const isVideo = apod.mediaType === 'video';
+
+  const handleDownload = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(imgUrl);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = `cosmic-discovery-${apod.date || 'image'}.jpg`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (err) {
+      // Fallback if CORS blocks the fetch
+      window.open(imgUrl, '_blank', 'noopener,noreferrer');
+    }
+  };
 
   return (
     <motion.div
@@ -45,18 +66,31 @@ export default function ApodCard({ apod }) {
             </p>
           )}
           
-          {imgUrl && (
-            <a
-              href={imgUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-ghost"
-              style={{ alignSelf: 'flex-start', border: '1px solid var(--border-dim)', padding: '0.6rem 1.5rem', fontSize: '0.75rem', letterSpacing: '0.1em' }}
-              data-hover
-            >
-              ACCESS FULL SPECTRUM DATA
-            </a>
-          )}
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: 'auto' }}>
+            {imgUrl && (
+              <button
+                onClick={handleDownload}
+                className="btn-ghost"
+                style={{ border: '1px solid var(--border-dim)', padding: '0.6rem 1.5rem', fontSize: '0.75rem', letterSpacing: '0.1em' }}
+                data-hover
+              >
+                <FontAwesomeIcon icon={faDownload} style={{ marginRight: '0.5rem' }} />
+                DOWNLOAD IMAGE
+              </button>
+            )}
+            
+            {onShare && (
+              <button 
+                onClick={onShare}
+                className="btn-ghost"
+                style={{ border: '1px solid var(--border-dim)', padding: '0.6rem 1.5rem', fontSize: '0.75rem', letterSpacing: '0.1em', minWidth: '120px' }}
+                data-hover
+              >
+                <FontAwesomeIcon icon={shareText === 'SHARE' ? faShareNodes : faCircleCheck} style={{ marginRight: '0.5rem' }} />
+                {shareText}
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </motion.div>

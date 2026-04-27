@@ -121,17 +121,6 @@ function ResultContent() {
         <button className="btn-ghost" onClick={() => router.push('/')} data-hover>
           <FontAwesomeIcon icon={faArrowLeft} style={{ marginRight: '0.5rem' }} /> NEW SEARCH
         </button>
-
-        <div className="result-nav-actions" style={{ display: 'flex', gap: '1rem' }}>
-          <button className="btn-ghost" onClick={handleShare} data-hover style={{ minWidth: '120px' }}>
-            <FontAwesomeIcon icon={shareText === 'SHARE' ? faShareNodes : faCircleCheck} style={{ marginRight: '0.5rem' }} /> 
-            {shareText}
-          </button>
-          <div className="badge">
-            <span className="badge-dot" />
-            {data.dataQuality === 'full' ? 'FULL DATA RETRIEVAL' : 'PARTIAL DATA'}
-          </div>
-        </div>
       </motion.div>
 
       {/* Date Header */}
@@ -212,7 +201,11 @@ function ResultContent() {
       >
         <div className="section-label">CELESTIAL CAPTURE</div>
         <BorderGlow glowColor="210 34 54" borderRadius={0} colors={['#4A7AB5', '#7BA8D9', '#2E4C70']}>
-          <ApodCard apod={data.apodImage} />
+          <ApodCard 
+            apod={data.apodImage} 
+            onShare={handleShare} 
+            shareText={shareText} 
+          />
         </BorderGlow>
       </motion.div>
     </div>
