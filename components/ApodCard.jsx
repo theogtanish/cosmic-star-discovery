@@ -14,24 +14,14 @@ export default function ApodCard({ apod, onShare, shareText }) {
   const imgUrl = apod.hdUrl || apod.url;
   const isVideo = apod.mediaType === 'video';
 
-  const handleDownload = async (e) => {
+  const handleDownload = (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch(imgUrl);
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.style.display = 'none';
-      a.href = url;
-      a.download = `cosmic-discovery-${apod.date || 'image'}.jpg`;
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-    } catch (err) {
-      // Fallback if CORS blocks the fetch
-      window.open(imgUrl, '_blank', 'noopener,noreferrer');
-    }
+    if (!imgUrl) return;
+    
+    // Redirect to our server-side download proxy
+    // This bypasses CORS and forces the browser to download the file
+    const downloadUrl = `/api/download?url=${encodeURIComponent(imgUrl)}`;
+    window.location.href = downloadUrl;
   };
 
   return (
