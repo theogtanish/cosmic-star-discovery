@@ -1,6 +1,7 @@
 import './globals.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 config.autoAddCss = false;
 
 export const metadata = {
@@ -34,6 +35,7 @@ export default function RootLayout({ children }) {
         <div style={{ position: 'relative', zIndex: 1 }}>
           {children}
         </div>
+        <SpeedInsights />
       </body>
     </html>
   );
