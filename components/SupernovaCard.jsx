@@ -51,7 +51,7 @@ export default function SupernovaCard({ supernova }) {
           lineHeight: '1.4',
           opacity: 0.8
         }}>
-          "{supernova.note}"
+          &quot;{supernova.note}&quot;
         </div>
       )}
     </motion.div>

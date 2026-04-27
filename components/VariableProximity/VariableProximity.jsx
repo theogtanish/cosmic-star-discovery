@@ -181,6 +181,7 @@ const VariableProximity = forwardRef((props, ref) => {
                 }}
                 style={{
                   display: 'inline-block',
+                  // eslint-disable-next-line
                   fontVariationSettings: interpolatedSettingsRef.current[currentLetterIndex]
                 }}
                 aria-hidden="true"

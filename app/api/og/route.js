@@ -10,8 +10,18 @@ export async function GET(request) {
     const date = searchParams.get('date') || 'Cosmic Time';
     const constellation = searchParams.get('constellation') || 'Deep Space';
     const distance = searchParams.get('distance') || '—';
-    const imageUrl = searchParams.get('img') || 'https://apod.nasa.gov/apod/image/0001/deepfield_hst_big.jpg';
-
+    let imageUrl = searchParams.get('img') || 'https://apod.nasa.gov/apod/image/0001/deepfield_hst_big.jpg';
+    
+    // SECURITY: Validate imageUrl domain to prevent SSRF
+    try {
+      const parsedImage = new URL(imageUrl);
+      const allowedDomains = ['apod.nasa.gov', 'hubblesite.org', 'images-assets.nasa.gov'];
+      if (!allowedDomains.includes(parsedImage.hostname)) {
+        imageUrl = 'https://apod.nasa.gov/apod/image/0001/deepfield_hst_big.jpg'; // Fallback
+      }
+    } catch (e) {
+      imageUrl = 'https://apod.nasa.gov/apod/image/0001/deepfield_hst_big.jpg'; // Fallback
+    }
     return new ImageResponse(
       (
         <div

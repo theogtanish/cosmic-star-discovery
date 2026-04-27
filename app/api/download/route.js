@@ -6,6 +6,17 @@ export async function GET(request) {
     return new Response('Missing URL parameter', { status: 400 });
   }
 
+  // SECURITY: Prevent SSRF by strictly allowing only NASA/Hubble domains
+  try {
+    const parsedUrl = new URL(url);
+    const allowedDomains = ['apod.nasa.gov', 'hubblesite.org'];
+    if (!allowedDomains.includes(parsedUrl.hostname)) {
+      return new Response('Unauthorized domain', { status: 403 });
+    }
+  } catch (e) {
+    return new Response('Invalid URL', { status: 400 });
+  }
+
   try {
     const response = await fetch(url);
     

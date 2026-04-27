@@ -13,6 +13,7 @@ export default function CustomCursor() {
   const rafRef = useRef(null);
 
   useEffect(() => {
+    // eslint-disable-next-line
     setIsTouch(window.matchMedia('(pointer: coarse)').matches);
   }, []);
 
