@@ -669,6 +669,8 @@ a:hover { color: var(--gold-bright); }
   transform: translate(-50%, -50%);
   width: 90%;
   max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
   background: #0A0C10;
   border: 1px solid var(--border-medium);
   padding: 2rem;

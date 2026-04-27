@@ -27,7 +27,7 @@ export default function ShareDialog({ isOpen, onClose, data, dateStr }) {
   const ogImageUrl = `${baseUrl}/api/og?${ogParams}`;
 
   // User's requested HTML Embed snippet
-  const embedCode = `<a href="${shareUrl}" style="display:inline-flex;align-items:center;gap:12px;background:#050810;border-radius:12px;padding:12px 16px;text-decoration:none;width:340px;overflow:hidden;position:relative;"><img src="${apodUrl}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.4;" /><div style="width:44px;height:44px;border-radius:50%;border:1px solid rgba(201,168,76,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:1;"><span style="color:#c9a84c;font-size:20px;">✦</span></div><div style="position:relative;z-index:1;"><div style="font-family:serif;font-style:italic;color:#c9a84c;font-size:1.2rem;">${star.name}</div><div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">${dateStr} Discovery</div></div></a>`;
+  const embedCode = `<a href="${shareUrl}" style="display:inline-flex;align-items:center;gap:12px;background:#050810;border-radius:12px;padding:12px 16px;text-decoration:none;width:100%;max-width:340px;overflow:hidden;position:relative;box-sizing:border-box;"><img src="${apodUrl}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.4;" /><div style="width:44px;height:44px;border-radius:50%;border:1px solid rgba(201,168,76,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:1;"><span style="color:#c9a84c;font-size:20px;">✦</span></div><div style="position:relative;z-index:1;"><div style="font-family:serif;font-style:italic;color:#c9a84c;font-size:1.2rem;">${star.name}</div><div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">${dateStr} Discovery</div></div></a>`;
 
   const copyEmbed = () => {
     navigator.clipboard.writeText(embedCode);
@@ -55,9 +55,9 @@ export default function ShareDialog({ isOpen, onClose, data, dateStr }) {
 
           <motion.div
             className="share-dialog"
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            initial={{ opacity: 0, scale: 0.9, x: "-50%", y: "-40%" }}
+            animate={{ opacity: 1, scale: 1, x: "-50%", y: "-50%" }}
+            exit={{ opacity: 0, scale: 0.9, x: "-50%", y: "-40%" }}
           >
             <div className="share-dialog-header">
               <h3>SHARE YOUR DISCOVERY</h3>
