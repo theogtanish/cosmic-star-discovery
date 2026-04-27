@@ -37,16 +37,11 @@ export default function LoadingState({ date }) {
 
   return (
     <div className="loading-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', gap: '3rem' }}>
-      <div className="orbital-animation" style={{ position: 'relative', width: '120px', height: '120px' }}>
-        <div className="orbital-ring orbital-ring--1" style={{ border: '1px solid var(--gold-muted)', opacity: 0.2 }} />
-        <div className="orbital-ring orbital-ring--2" style={{ border: '1px solid var(--gold-muted)', opacity: 0.15 }} />
-        <div className="orbital-ring orbital-ring--3" style={{ border: '1px solid var(--gold-muted)', opacity: 0.1 }} />
-        <div className="orbital-dot" style={{ background: 'var(--gold-pure)', boxShadow: '0 0 20px var(--gold-pure)' }} />
-      </div>
+
 
       <div style={{ textAlign: 'center' }}>
         <h2 className="loading-headline" style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', fontStyle: 'italic', color: 'var(--text-primary)', marginBottom: '1rem' }}>
-          Initializing {year || '...'} Observatories
+          Initializing {year || '...'} <span className="text-highlight">Observatories</span>
         </h2>
         
         <div className="loading-status-wrap" style={{ height: '1.5rem', overflow: 'hidden' }}>

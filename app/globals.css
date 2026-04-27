@@ -139,6 +139,22 @@ a:hover { color: var(--gold-bright); }
 }
 
 /* ── Shared Layouts ────────────────────────────────────────────────────── */
+::selection {
+  background: var(--gold-pure);
+  color: #000;
+}
+::-moz-selection {
+  background: var(--gold-pure);
+  color: #000;
+}
+
+.text-highlight {
+  background: linear-gradient(180deg, transparent 65%, var(--gold-dim) 65%);
+  padding: 0 0.1em;
+  color: var(--text-primary);
+  display: inline-block;
+}
+
 .page-container {
   position: relative;
   z-index: 1;

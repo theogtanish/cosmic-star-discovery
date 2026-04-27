@@ -40,15 +40,17 @@ export default function StarHero({ star }) {
         </div>
 
         <div ref={containerRef} className="star-name-container" style={{ minHeight: '120px', display: 'flex', alignItems: 'center' }}>
-          <VariableProximity
-            label={name}
-            containerRef={containerRef}
-            fromFontVariationSettings="'wght' 300, 'ital' 1"
-            toFontVariationSettings="'wght' 800, 'ital' 1"
-            radius={200}
-            falloff="linear"
-            className="star-name-variable"
-          />
+          <span className="text-highlight" style={{ padding: '0 0.1em' }}>
+            <VariableProximity
+              label={name}
+              containerRef={containerRef}
+              fromFontVariationSettings="'wght' 300, 'ital' 1"
+              toFontVariationSettings="'wght' 800, 'ital' 1"
+              radius={200}
+              falloff="linear"
+              className="star-name-variable"
+            />
+          </span>
         </div>
 
         <motion.div
