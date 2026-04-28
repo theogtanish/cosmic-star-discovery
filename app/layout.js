@@ -5,7 +5,7 @@ config.autoAddCss = false;
 
 export const metadata = {
   title: 'Star Discovery — What Did The Universe Discover On Your Day?',
-  description: 'Enter any date and discover which star, supernova, asteroid, and cosmic event the universe revealed that day. Powered by 5 real astronomical databases.',
+  description: 'Enter any date and discover which star, supernova, asteroid, and cosmic event the universe revealed that day.',
   keywords: 'star discovery, exoplanet, supernova, asteroid, NASA, astronomy, cosmic story',
 };
 
@@ -24,6 +24,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={figtree.variable}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         
         <link rel="dns-prefetch" href="https://exoplanetarchive.ipac.caltech.edu" />
         <link rel="dns-prefetch" href="https://api.nasa.gov" />

@@ -31,16 +31,7 @@ export default function HomePage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* Badge */}
-          <motion.div
-            className="badge"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-          >
-            <span className="badge-dot" />
-            5 ASTRONOMICAL DATABASES
-          </motion.div>
+
 
           {/* Title */}
           <motion.div

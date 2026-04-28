@@ -10,7 +10,22 @@ export default function DateInput({ value, onChange, onSubmit }) {
   return (
     <div
       className={`date-input-wrapper ${focused ? 'focused' : ''}`}
-      onClick={() => inputRef.current?.showPicker()}
+      onClick={() => {
+        if (inputRef.current) {
+          try {
+            if (typeof inputRef.current.showPicker === 'function') {
+              inputRef.current.showPicker();
+            } else {
+              // Fallback for older browsers / iOS
+              inputRef.current.focus();
+              inputRef.current.click();
+            }
+          } catch (e) {
+            inputRef.current.focus();
+            inputRef.current.click();
+          }
+        }
+      }}
       style={{ 
         cursor: 'pointer',
         padding: '0.75rem 1.5rem',
@@ -19,11 +34,12 @@ export default function DateInput({ value, onChange, onSubmit }) {
         display: 'flex',
         alignItems: 'center',
         gap: '1rem',
-        transition: 'all 0.4s var(--ease-out-expo)'
+        transition: 'all 0.4s var(--ease-out-expo)',
+        position: 'relative'
       }}
     >
-      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', color: 'var(--gold-pure)', letterSpacing: '0.2em' }}>
-        DATE_SELECT
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', color: 'var(--gold-pure)', letterSpacing: '0.2em', pointerEvents: 'none' }}>
+        Date
       </div>
       <input
         ref={inputRef}
@@ -42,7 +58,12 @@ export default function DateInput({ value, onChange, onSubmit }) {
           fontFamily: 'var(--font-mono)',
           fontSize: '1rem',
           outline: 'none',
-          cursor: 'pointer'
+          cursor: 'pointer',
+          flex: 1,
+          width: '100%',
+          height: '100%',
+          minHeight: '2.5rem',
+          WebkitAppearance: 'none' // Sometimes helps on iOS to reset default styles
         }}
       />
     </div>
