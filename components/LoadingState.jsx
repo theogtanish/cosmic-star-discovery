@@ -59,9 +59,7 @@ export default function LoadingState({ date }) {
         </div>
       </div>
 
-      <div className="loading-progress" style={{ width: '200px', height: '1px', background: 'rgba(255,255,255,0.1)', overflow: 'hidden' }}>
-        <div className="loading-progress-inner" style={{ height: '100%', background: 'var(--gold-pure)', transition: 'width 0.4s ease' }} />
-      </div>
+
     </div>
   );
 }
