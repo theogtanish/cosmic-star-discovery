@@ -33,9 +33,20 @@ export default function HomePage() {
         >
 
 
+
+          {/* Brand Icon */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, duration: 1 }}
+            style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}
+          >
+            <img src="/planet-icon.png" alt="Star Discovery" style={{ width: '64px', height: '64px', filter: 'invert(1) brightness(1.5)' }} />
+          </motion.div>
+
           {/* Title */}
           <motion.div
-            style={{ marginTop: '3rem', marginBottom: '2rem' }}
+            style={{ marginTop: '0rem', marginBottom: '2rem' }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 1 }}
