@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+  padding: var(--space-xl);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-dim);
+  border-radius: 4px;
+  width: fit-content;
+  margin: 0 auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(20px);
+}
+
+.calendarWrapper {
+  background: var(--bg-deep);
+  border-radius: 2px;
+  padding: var(--space-sm);
+  border: 1px solid var(--border-medium);
+}
+
+.calendar {
+  color: var(--text-primary);
+}
+
+.selectedDate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  text-align: center;
+}
+
+.label {
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.value {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--gold-pure);
+  text-shadow: 0 0 10px var(--gold-glow);
+}

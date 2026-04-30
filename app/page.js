@@ -6,18 +6,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 import CustomCursor from '../components/CustomCursor';
-import DateInput from '../components/DateInput';
+import DateSelector from '../components/DateSelector/DateSelector';
 import MagneticButton from '../components/MagneticButton';
 
 export default function HomePage() {
-  const [date, setDate] = useState('');
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [error, setError] = useState('');
   const router = useRouter();
 
   const handleDiscover = () => {
-    if (!date) { setError('Please select a date'); return; }
+    if (!selectedDate) { setError('Please select a date'); return; }
     setError('');
-    router.push(`/result?date=${date}`);
+    
+    // Format to YYYY-MM-DD for the discovery URL
+    const year = selectedDate.getFullYear();
+    const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+    const day = String(selectedDate.getDate()).padStart(2, '0');
+    const dateStr = `${year}-${month}-${day}`;
+    
+    console.log('Discovering for date:', dateStr, selectedDate);
+    router.push(`/result?date=${dateStr}`);
   };
 
   return (
@@ -87,16 +95,20 @@ export default function HomePage() {
           <motion.div
             style={{ 
               display: 'flex', 
-              gap: '1rem', 
+              flexDirection: 'column',
+              gap: '2.5rem', 
               justifyContent: 'center', 
               alignItems: 'center',
-              flexWrap: 'wrap'
             }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1, duration: 0.8 }}
           >
-            <DateInput value={date} onChange={setDate} />
+            <DateSelector onDateChange={(d) => {
+              console.log('Selected Date Changed:', d);
+              setSelectedDate(d);
+            }} />
+            
             <MagneticButton onClick={handleDiscover}>
               DISCOVER <FontAwesomeIcon icon={faArrowRight} style={{ marginLeft: '0.5rem' }} />
             </MagneticButton>
